@@ -3,9 +3,8 @@ extern crate serde_json;
 
 mod deserializer;
 
-use std::fs::File;
+use deserializer::{print_index, IndexFile};
 use std::path::Path;
-use deserializer::{IndexFile, print_index};
 
 
 fn main() {

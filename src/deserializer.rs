@@ -1,5 +1,5 @@
 extern crate serde;
-use serde::{Deserialize};
+use serde::Deserialize;
 
 fn default_spell() -> String {
     "".to_string()
@@ -7,7 +7,10 @@ fn default_spell() -> String {
 
 #[derive(Debug)]
 enum NameType {
-    Func, Var, Macro, Type
+    Func,
+    Var,
+    Macro,
+    Type,
 }
 
 #[derive(Deserialize)]
@@ -29,7 +32,9 @@ pub struct IndexFile {
 
 fn print_entry(entry: &Entry, name_type: NameType) -> () {
     if entry.spell != "" {
-        let name: String = entry.detailed_name.chars()
+        let name: String = entry
+            .detailed_name
+            .chars()
             .skip(entry.short_name_offset)
             .take(entry.short_name_size)
             .collect();
@@ -47,8 +52,13 @@ pub fn print_index(index: &IndexFile) -> () {
         print_entry(&entry, NameType::Type);
     }
     for entry in index.usr2var.iter() {
-        print_entry(&entry, if entry.kind == 255
-                            {NameType::Macro} else
-                            {NameType::Var});
+        print_entry(
+            &entry,
+            if entry.kind == 255 {
+                NameType::Macro
+            } else {
+                NameType::Var
+            },
+        );
     }
 }
