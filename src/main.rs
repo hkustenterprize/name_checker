@@ -5,6 +5,7 @@ mod deserializer;
 
 use deserializer::{print_index, IndexFile};
 use std::path::Path;
+use std::fs::File;
 
 
 fn main() {
